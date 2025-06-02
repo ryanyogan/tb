@@ -2,6 +2,7 @@ import { data, Link } from "react-router";
 import { Placeholder } from "~/components/placeholder";
 import { Button } from "~/components/ui/button";
 import { initialTickets } from "~/data";
+import { TicketItem } from "~/features/ticket/components/ticket-item";
 import { ticketsPath } from "~/pathts";
 import type { Route } from "./+types/ticket-page";
 
@@ -28,8 +29,8 @@ export default function TicketPage({ loaderData }: Route.ComponentProps) {
   }
 
   return (
-    <div>
-      <h2>{loaderData?.ticket.title}</h2>
+    <div className="flex justify-center animate-fade-from-top">
+      <TicketItem ticket={loaderData.ticket} isDetail />
     </div>
   );
 }
