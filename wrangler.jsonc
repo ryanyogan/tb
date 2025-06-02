@@ -9,9 +9,9 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "your-database-name",
-      "database_id": "your-database-id",
-      "migrations_dir": "drizzle"
+      "database_name": "ticket-bounty",
+      "database_id": "763da2dd-3f7d-4202-9554-77a769d45e14",
+      "migrations_dir": "./drizzle"
     }
   ]
 }

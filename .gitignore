@@ -6,6 +6,11 @@
 /.react-router/
 /build/
 
+
 # Cloudflare
 .mf
 .wrangler
+.env
+.vscode/
+
+# TypeScript

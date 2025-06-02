@@ -1,7 +1,7 @@
-import * as schema from "~/database/schema";
-
+import { Link } from "react-router";
+import { Heading } from "~/components/heading";
+import { ticketsPath } from "~/pathts";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,47 +10,16 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function action({ request, context }: Route.ActionArgs) {
-  const formData = await request.formData();
-  let name = formData.get("name");
-  let email = formData.get("email");
-  if (typeof name !== "string" || typeof email !== "string") {
-    return { guestBookError: "Name and email are required" };
-  }
-
-  name = name.trim();
-  email = email.trim();
-  if (!name || !email) {
-    return { guestBookError: "Name and email are required" };
-  }
-
-  try {
-    await context.db.insert(schema.guestBook).values({ name, email });
-  } catch (error) {
-    return { guestBookError: "Error adding to guest book" };
-  }
-}
-
-export async function loader({ context }: Route.LoaderArgs) {
-  const guestBook = await context.db.query.guestBook.findMany({
-    columns: {
-      id: true,
-      name: true,
-    },
-  });
-
-  return {
-    guestBook,
-    message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE,
-  };
-}
-
 export default function Home({ actionData, loaderData }: Route.ComponentProps) {
   return (
-    <Welcome
-      guestBook={loaderData.guestBook}
-      guestBookError={actionData?.guestBookError}
-      message={loaderData.message}
-    />
+    <div className="flex-1 flex flex-col gap-y-8">
+      <Heading title="Home" description="Your home place to start" />
+
+      <div className="flex-1 flex flex-col items-center">
+        <Link to={ticketsPath()} className="text-sm underline">
+          Go to Tickets
+        </Link>
+      </div>
+    </div>
   );
 }
