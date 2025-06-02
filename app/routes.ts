@@ -11,4 +11,5 @@ export default [
     index("routes/tickets/tickets-page.tsx"),
     route(":ticketId", "routes/tickets/ticket-page.tsx"),
   ]),
+  route("seed", "routes/seed.ts"),
 ] satisfies RouteConfig;

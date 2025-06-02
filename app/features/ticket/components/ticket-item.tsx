@@ -1,4 +1,4 @@
-import { LucideArrowUpRightFromSquare } from "lucide-react";
+import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import {
@@ -8,10 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import type { Ticket } from "~/database/schema";
 import { cn } from "~/lib/utils";
 import { ticketPath } from "~/pathts";
 import { TICKET_ICONS } from "../constants";
-import type { Ticket } from "../types";
 
 type TicketItemProps = {
   ticket: Ticket;
@@ -25,6 +25,21 @@ export function TicketItem({ ticket, isDetail }: TicketItemProps) {
         <LucideArrowUpRightFromSquare className="size-4" />
       </Link>
     </Button>
+  );
+
+  const deleteButton = (
+    <form method="post">
+      <input type="hidden" name="ticketId" value={ticket.id} />
+      <Button
+        name="intent"
+        value="deleteTicket"
+        variant="outline"
+        type="submit"
+        size="icon"
+      >
+        <LucideTrash className="size-4" />
+      </Button>
+    </form>
   );
 
   return (
@@ -57,9 +72,9 @@ export function TicketItem({ ticket, isDetail }: TicketItemProps) {
         </CardFooter>
       </Card>
 
-      {isDetail ? null : (
-        <div className="flex flex-col gap-y-1">{detailButton}</div>
-      )}
+      <div className="flex flex-col gap-y-1">
+        {isDetail ? deleteButton : detailButton}
+      </div>
     </div>
   );
 }
