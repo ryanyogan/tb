@@ -8,6 +8,15 @@ export const ticketActionHandlers = {
     const ticketId = formData.get("ticketId") as string;
     await context.db.delete(ticket).where(eq(ticket.id, ticketId)).run();
 
-    redirect(ticketsPath());
+    return redirect(ticketsPath());
+  },
+
+  async createTicket(context: AppLoadContext, formData: FormData) {
+    const data = {
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+    };
+
+    await context.db.insert(ticket).values(data).run();
   },
 };
