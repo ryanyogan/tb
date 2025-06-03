@@ -7,10 +7,10 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import { ThemeProvider } from "next-themes";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Header } from "./components/header";
+import { ThemeProvider } from "./components/theme/theme-provider";
 
 export function meta() {
   return [
@@ -28,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="antialiased">
+      <body className="antialiased font-inter">
         <ThemeProvider>
           <main className="min-h-screen flex-1 overflow-y-auto overflow-x-hidden py-24 px-8 bg-secondary/20 flex flex-col">
             <Header />

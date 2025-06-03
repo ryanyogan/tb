@@ -1,4 +1,4 @@
-import type { Ticket } from "../types";
+import type { Ticket } from "~/database/schema";
 import { TicketItem } from "./ticket-item";
 
 export function TicketList({ tickets }: { tickets: Ticket[] }) {

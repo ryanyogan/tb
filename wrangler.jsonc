@@ -13,5 +13,9 @@
       "database_id": "763da2dd-3f7d-4202-9554-77a769d45e14",
       "migrations_dir": "./drizzle"
     }
-  ]
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
 }

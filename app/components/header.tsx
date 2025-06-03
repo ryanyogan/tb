@@ -16,6 +16,7 @@ export function Header() {
       <div className="flex items-center gap-x-2">
         <ThemeSwitcher />
         <Link
+          prefetch="intent"
           to={ticketsPath()}
           className={buttonVariants({ variant: "default" })}
         >

@@ -18,5 +18,29 @@ export const ticketActionHandlers = {
     };
 
     await context.db.insert(ticket).values(data).run();
+
+    return { message: "Ticket created successfully" };
+  },
+
+  async upsertTicket(context: AppLoadContext, formData: FormData) {
+    const ticketId = formData.get("ticketId") as string;
+    const data = {
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+    };
+
+    await context.db
+      .insert(ticket)
+      .values({
+        ...data,
+        id: ticketId ? ticketId : undefined, // If ticketId exists, it will be used for upsert
+      })
+      .onConflictDoUpdate({
+        target: ticket.id,
+        set: data,
+      });
+
+    // redirect(ticketsPath());
+    return { message: "Ticket updated successfully" };
   },
 };

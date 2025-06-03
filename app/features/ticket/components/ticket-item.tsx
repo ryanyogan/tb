@@ -1,4 +1,8 @@
-import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
+import {
+  LucideArrowUpRightFromSquare,
+  LucidePencil,
+  LucideTrash,
+} from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import {
@@ -10,7 +14,7 @@ import {
 } from "~/components/ui/card";
 import type { Ticket } from "~/database/schema";
 import { cn } from "~/lib/utils";
-import { ticketPath } from "~/pathts";
+import { ticketEditPath, ticketPath } from "~/pathts";
 import { TICKET_ICONS } from "../constants";
 
 type TicketItemProps = {
@@ -21,8 +25,16 @@ type TicketItemProps = {
 export function TicketItem({ ticket, isDetail }: TicketItemProps) {
   const detailButton = (
     <Button variant="outline" size="icon" asChild>
-      <Link to={ticketPath(ticket.id)}>
+      <Link prefetch="intent" to={ticketPath(ticket.id)}>
         <LucideArrowUpRightFromSquare className="size-4" />
+      </Link>
+    </Button>
+  );
+
+  const editButton = (
+    <Button variant="outline" size="icon" asChild>
+      <Link prefetch="intent" to={ticketEditPath(ticket.id)}>
+        <LucidePencil className="size-4" />
       </Link>
     </Button>
   );
@@ -73,7 +85,17 @@ export function TicketItem({ ticket, isDetail }: TicketItemProps) {
       </Card>
 
       <div className="flex flex-col gap-y-1">
-        {isDetail ? deleteButton : detailButton}
+        {isDetail ? (
+          <>
+            {editButton}
+            {deleteButton}
+          </>
+        ) : (
+          <>
+            {detailButton}
+            {editButton}
+          </>
+        )}
       </div>
     </div>
   );
